@@ -27,7 +27,7 @@ async function registerUser(req, res) {
         const cookieOpts = {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
         };
 
         res.cookie('accessToken', accessToken, {
@@ -83,7 +83,7 @@ async function loginUser(req, res) {
         const cookieOpts = {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
         };
 
         res.cookie('accessToken', accessToken, {
@@ -113,8 +113,16 @@ async function logoutUser(req, res) {
         if (req.user?._id) {
             await userModel.findByIdAndUpdate(req.user._id, { refreshToken: null });
         }
-        res.clearCookie('accessToken');
-        res.clearCookie('refreshToken');
+        res.clearCookie('accessToken', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+        });
+        res.clearCookie('refreshToken', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+        });
         res.status(200).json({
             message: 'User logged out successfully'
         });
@@ -151,7 +159,7 @@ const refreshToken = async (req, res) => {
         res.cookie('accessToken', newAccessToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
             maxAge: 15 * 60 * 1000,
         });
 
