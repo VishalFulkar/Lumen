@@ -159,3 +159,9 @@ For test coverage reports:
 ```bash
 npm run test:coverage
 ```
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
