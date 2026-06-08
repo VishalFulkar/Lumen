@@ -177,8 +177,27 @@ const refreshToken = async (req, res) => {
     }
 };
 
-const getMe = (req, res) => {
-    res.status(200).json({ user: req.user });
+const getMe = async (req, res) => {
+    try {
+        const token = req.cookies.accessToken;
+        if (!token) {
+            return res.status(200).json({ user: null });
+        }
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        if (!decoded?.userId) {
+            return res.status(200).json({ user: null });
+        }
+
+        const user = await userModel.findById(decoded.userId);
+        if (!user) {
+            return res.status(200).json({ user: null });
+        }
+
+        res.status(200).json({ user });
+    } catch (error) {
+        res.status(200).json({ user: null });
+    }
 };
 
 module.exports = { registerUser, loginUser, logoutUser, refreshToken, getMe };

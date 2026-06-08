@@ -15,11 +15,19 @@ export const useAuthStore = create((set) => ({
         set({ isCheckingAuth: true, error: null });
         try {
             const { data } = await authAPI.getMe();
-            set({
-                user: data.user,
-                isAuthenticated: true,
-                isCheckingAuth: false
-            });
+            if (data && data.user) {
+                set({
+                    user: data.user,
+                    isAuthenticated: true,
+                    isCheckingAuth: false
+                });
+            } else {
+                set({
+                    user: null,
+                    isAuthenticated: false,
+                    isCheckingAuth: false
+                });
+            }
         } catch (error) {
             set({
                 user: null,
