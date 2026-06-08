@@ -28,15 +28,26 @@ const KnowledgeGraph = ({ graph }) => {
             .style("border-radius", "8px")
             .style("background-color", "#131314");
 
-        const simulation = d3.forceSimulation(graph.nodes)
-            .force("link", d3.forceLink(graph.edges).id((d) => d.id).distance(100))
+        // Deep copy nodes and edges to avoid mutation of props and filter out invalid links
+        const nodes = graph.nodes.map(n => ({ ...n }));
+        const nodeIds = new Set(nodes.map(n => n.id));
+        const edges = graph.edges
+            .filter(e => {
+                const sourceId = typeof e.source === 'object' ? e.source.id : e.source;
+                const targetId = typeof e.target === 'object' ? e.target.id : e.target;
+                return nodeIds.has(sourceId) && nodeIds.has(targetId);
+            })
+            .map(e => ({ ...e }));
+
+        const simulation = d3.forceSimulation(nodes)
+            .force("link", d3.forceLink(edges).id((d) => d.id).distance(100))
             .force("charge", d3.forceManyBody().strength(-200))
             .force("center", d3.forceCenter(width / 2, height / 2))
             .force("collide", d3.forceCollide(35));
 
         const link = svg
             .selectAll("line")
-            .data(graph.edges)
+            .data(edges)
             .enter()
             .append("line")
             .attr("stroke", "#2d2d30")
@@ -49,7 +60,7 @@ const KnowledgeGraph = ({ graph }) => {
 
         const node = svg
             .selectAll("circle")
-            .data(graph.nodes)
+            .data(nodes)
             .enter()
             .append("circle")
             .attr("r", (d) => Math.min(15, Math.max(8, (d.weight || 1) * 5)))
@@ -80,7 +91,7 @@ const KnowledgeGraph = ({ graph }) => {
 
         const labels = svg
             .selectAll("text")
-            .data(graph.nodes)
+            .data(nodes)
             .enter()
             .append("text")
             .attr("dy", (d) => `${Math.min(15, Math.max(8, (d.weight || 1) * 5)) + 12}px`)
