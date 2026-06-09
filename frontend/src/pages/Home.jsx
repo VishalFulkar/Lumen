@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar'
 
 const Home = () => {
   const { sessions, setSessions } = useResearchStore()
-  const [showSidebar, setShowSidebar] = useState(true)
+  const [showSidebar, setShowSidebar] = useState(window.innerWidth >= 768)
 
   useEffect(() => {
     const fetchSessions = async () => {
@@ -26,9 +26,17 @@ const Home = () => {
       {/* Header */}
       <Navbar />
       {/* Main Body Layout with Sidebar */}
-      <div className="flex-1 flex flex-row overflow-hidden">
+      <div className="flex-1 flex flex-row overflow-hidden relative">
+        {/* Mobile Sidebar Backdrop Overlay */}
+        {showSidebar && (
+          <div
+            className="fixed inset-0 bg-black/40 z-20 md:hidden transition-opacity duration-300"
+            onClick={() => setShowSidebar(false)}
+          />
+        )}
+
         {/* Sidebar */}
-        <aside className={`border-r border-[#2d2d30] bg-[#1c1c1e] flex flex-col shrink-0 overflow-hidden transition-all duration-300 ${showSidebar ? 'w-72' : 'w-0 border-r-0'}`}>
+        <aside className={`absolute md:relative left-0 top-0 bottom-0 z-30 h-full border-r border-[#2d2d30] bg-[#1c1c1e] flex flex-col shrink-0 overflow-hidden transition-all duration-300 ${showSidebar ? 'w-72' : 'w-0 border-r-0'}`}>
           <div className="w-72 flex flex-col h-full">
             <div className="p-4 border-b border-[#2d2d30] flex items-center justify-between shrink-0">
               <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Research History</span>
@@ -43,9 +51,9 @@ const Home = () => {
         {/* Main Content Area */}
         <main className="flex-1 flex flex-col overflow-y-auto bg-[#131314] relative">
           {/* Floating Sidebar Toggle Button */}
-          <button 
+          <button
             onClick={() => setShowSidebar(!showSidebar)}
-            className="absolute top-6 left-6 p-2 bg-[#1c1c1e] hover:bg-[#2a2a2c] text-gray-400 hover:text-white rounded-lg border border-[#2d2d30] shadow-md transition-all z-40 cursor-pointer flex items-center justify-center"
+            className={`absolute top-6 p-2 bg-[#1c1c1e] hover:bg-[#2a2a2c] text-gray-400 hover:text-white rounded-lg border border-[#2d2d30] shadow-md transition-all duration-300 z-40 cursor-pointer flex items-center justify-center ${showSidebar ? 'md:left-6 left-[300px]' : 'left-6'}`}
             title={showSidebar ? "Hide Research History" : "Show Research History"}
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
