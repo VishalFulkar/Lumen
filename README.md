@@ -9,10 +9,11 @@ The platform provides a highly responsive UI with real-time feedback using WebSo
 ## 🚀 Key Features
 
 * **AI Agent Orchestration:** Coordinates 6 specialized agents working together under a central supervisor to fetch, analyze, and build research reports.
+* **Research Depth Settings:** Choose between **Quick**, **Standard**, or **Deep** research mode, which dynamically alters Tavily search complexity (basic vs. advanced), result count (4, 8, or 15 sources), LLM output tokens (1000, 2000, or 4000), and report layout complexity.
 * **Real-Time Progress Tracking:** Watch agents execute tasks (searching, reading, summarizing) in real-time through a terminal-style progress log powered by Socket.io.
 * **Smart Citation Verification:** Verifies citations by cross-referencing generated content against the source text to ensure validity and prevent AI hallucinations.
-* **Dynamic Knowledge Graph:** Automatically extracts key entities (concepts, organizations, people, events, sources) and relationship links, rendering them in a force-directed interactive D3.js visualization.
-* **Premium Dark Mode UI:** Designed with modern aesthetics including glassmorphic elements, glowing gradient accents, responsive layouts, and smooth micro-animations.
+* **Dynamic Knowledge Graph:** Automatically extracts key entities (concepts, organizations, people, events, sources) and relationship links, rendering them in a force-directed interactive D3.js visualization. It features centering gravity forces and boundary constraints to keep separate clusters centered and visible.
+* **Premium Mobile-First UI:** Designed with modern aesthetics including glassmorphic elements, glowing gradient accents, smooth micro-animations, and a fully responsive sidebar overlay with a click-away backdrop on mobile viewports.
 * **Session Management:** Save and access historical research sessions with dedicated routes for individual session results.
 * **Secure Authentication:** Complete registration and login system backed by JWT (JSON Web Tokens) with secure HttpOnly cookie storage.
 
@@ -55,10 +56,10 @@ graph TD
     I --> J[Socket.io Real-Time UI Update]
 ```
 
-1. **Search Agent:** Queries the Tavily API to locate the top 10 most relevant web results.
+1. **Search Agent:** Queries the Tavily API to locate relevant web results, scaling the result counts (4, 8, or 15) and search depth (basic/advanced) dynamically based on the selected research depth.
 2. **Reader Agent:** Concurrently scrapes full-page HTML content from the returned URLs and extracts clean text.
 3. **Summarizer Agent:** Condenses scraped articles into concise summary bullet points using Groq.
-4. **Synthesizer Agent:** Generates a comprehensive research report in Markdown, structured with citations.
+4. **Synthesizer Agent:** Generates a comprehensive research report in Markdown, tailoring the sections, word count target (300-500, 800-1200, or 1500-2500 words), and max tokens based on the selected research depth.
 5. **Citation Agent:** Validates that the facts presented correspond directly to the source URLs, filtering out invalid citations.
 6. **Graph Agent:** Extracts the top 10–15 key entities (concepts, persons, organizations, events, sources) and their relationships to construct the knowledge graph.
 
