@@ -10,13 +10,13 @@ const reportModel = require("../models/reports.model");
 
 const researchOrchestrator = async (sessionId, topic, depth = "standard") => {
     try {
-        const { results } = await searchAgent(sessionId, topic);
+        const { results } = await searchAgent(sessionId, topic, depth);
 
         const sources = await readerAgent(sessionId, results);
 
         const summarized = await summarizerAgent(sessionId, sources, topic);
 
-        const report = await synthesizerAgent(sessionId, summarized, topic);
+        const report = await synthesizerAgent(sessionId, summarized, topic, depth);
 
         const citationResult = await validateCitations(sessionId, report, summarized);
 

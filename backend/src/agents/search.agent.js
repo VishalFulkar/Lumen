@@ -5,19 +5,23 @@ const client = tavily({
     apiKey: process.env.TAVILY_API_KEY
 })
 
-const searchAgent = async (sessionId, topic) => {
+const searchAgent = async (sessionId, topic, depth = "standard") => {
     const start = Date.now();
+
+    // Map depth values to Tavily API settings
+    const maxResults = depth === "quick" ? 4 : depth === "deep" ? 15 : 8;
+    const searchDepth = depth === "quick" ? "basic" : "advanced";
 
     await logAgent(
         sessionId,
         "search",
-        "Starting web search...",
+        `Starting web search (${depth} depth)...`,
         "started")
 
     try {
         const response = await client.search(topic, {
-            maxResults: 10,
-            searchDepth: "advanced",
+            maxResults,
+            searchDepth,
             includeAnswer: true,
             includeRawContent: false
         });

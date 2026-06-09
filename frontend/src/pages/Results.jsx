@@ -29,7 +29,7 @@ const Results = () => {
             >
               <span>←</span> Back to Dashboard
             </button>
-            <h1 className='text-3xl font-bold text-white'>
+            <h1 className='text-3xl font-bold capitalize text-white'>
               {session?.topic || 'Research Results'}
             </h1>
             <p className='text-xs text-gray-400 mt-2 flex items-center gap-2'>

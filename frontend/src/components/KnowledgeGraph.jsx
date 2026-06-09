@@ -42,6 +42,8 @@ const KnowledgeGraph = ({ graph }) => {
         const simulation = d3.forceSimulation(nodes)
             .force("link", d3.forceLink(edges).id((d) => d.id).distance(100))
             .force("charge", d3.forceManyBody().strength(-200))
+            .force("x", d3.forceX(width / 2).strength(0.05))
+            .force("y", d3.forceY(height / 2).strength(0.05))
             .force("center", d3.forceCenter(width / 2, height / 2))
             .force("collide", d3.forceCollide(35));
 
@@ -103,6 +105,13 @@ const KnowledgeGraph = ({ graph }) => {
             .text((d) => d.label.length > 15 ? d.label.substring(0, 13) + '...' : d.label);
 
         simulation.on("tick", () => {
+            // Clamp node positions to keep them inside the SVG box boundaries
+            nodes.forEach(d => {
+                const r = Math.min(15, Math.max(8, (d.weight || 1) * 5));
+                d.x = Math.max(r + 10, Math.min(width - r - 10, d.x));
+                d.y = Math.max(r + 10, Math.min(height - r - 25, d.y)); // extra padding at the bottom for text labels
+            });
+
             link
                 .attr("x1", (d) => d.source.x)
                 .attr("y1", (d) => d.source.y)
