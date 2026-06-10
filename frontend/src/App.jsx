@@ -54,6 +54,9 @@ const App = () => {
         <h2 className="text-xl font-medium text-gray-300 tracking-wide animate-pulse font-logo">
           Lumen
         </h2>
+        <p className="text-slate-400 text-xs max-w-xs leading-relaxed animate-pulse">
+          Waking up our backend server on Render. This may take up to a minute on the first load. Thank you for your patience!
+        </p>
       </div>
     )
   }
@@ -61,32 +64,32 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route 
-          path="/" 
+        <Route
+          path="/"
           element={
             <ProtectedRoute>
               <Home />
             </ProtectedRoute>
           }
         />
-        <Route 
-          path="/login" 
+        <Route
+          path="/login"
           element={
             <PublicRoute>
               <Login />
             </PublicRoute>
           }
         />
-        <Route 
-          path="/register" 
+        <Route
+          path="/register"
           element={
             <PublicRoute>
               <Register />
             </PublicRoute>
           }
         />
-        <Route 
-          path="/results/:sessionId" 
+        <Route
+          path="/results/:sessionId"
           element={
             <ProtectedRoute>
               <Results />
