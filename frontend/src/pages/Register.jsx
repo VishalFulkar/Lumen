@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
 import bg from "../assets/bg2.jpg"
-
+import icon from "../assets/icon.svg"
 const Register = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -232,25 +232,21 @@ const Register = () => {
                 <div style={{ backgroundImage: `url(${bg})`, backgroundSize: 'cover', backgroundPosition: 'center' }} className="hidden md:flex flex-col justify-between p-10 rounded-[24px] relative overflow-hidden border border-zinc-800/30 min-h-[500px]">
                     {/* Logo */}
                     <div className="flex items-center gap-2.5 relative z-10">
-                        <div className="w-9 h-9 rounded-xl bg-violet-600/20 border border-violet-500/30 flex items-center justify-center">
-                            <svg className="w-6 h-6 text-violet-400 drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L12 3L18 12L12 21L6 12Z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L12 15L18 12" />
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3V21" />
-                            </svg>
+                        <div className="w-9 h-9 rounded-xl flex items-center justify-center">
+                            <img className="w-12 h-12" src={icon} alt="" />
                         </div>
-                        <span className="text-2xl font-bold font-logo bg-linear-to-r from-violet-400 via-purple-200 to-fuchsia-400 bg-clip-text text-transparent">Lumen</span>
+                        <span className="text-2xl font-bold font-logo bg-linear-to-r from-blue-400 via-cyan-200 to-gray-300 bg-clip-text text-transparent">Lumen</span>
                     </div>
 
                     {/* Copywriting */}
                     <div className="relative z-10">
                         <h2 className="text-4xl font-extrabold tracking-tight text-white mb-4 leading-tight font-display">
-                            Your Search.<br />
-                            Your Sources.<br />
-                            Your Synthesis.
+                            Search Deeper.<br />
+                            Synthesize Faster.<br />
+                            Discover Smarter.
                         </h2>
                         <p className="text-zinc-400 text-sm max-w-sm leading-relaxed">
-                            Take control of your research, ensuring you have access to verified citations, structured reports, and deep insight synthesis.
+                            An AI-powered research co-pilot that orchestrates deep web analysis and writes publication-ready reports in seconds.
                         </p>
                     </div>
                 </div>

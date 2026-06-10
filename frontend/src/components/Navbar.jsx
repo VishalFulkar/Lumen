@@ -1,5 +1,6 @@
 import React from 'react'
 import { useAuthStore } from '../store/authStore'
+import icon from '../assets/icon.svg'
 
 const Navbar = () => {
   const { user, logout } = useAuthStore()
@@ -16,11 +17,11 @@ const Navbar = () => {
     <div className="w-full">
       <header className="w-full bg-[#1e1e1f] border-b border-[#2d2d30] px-6 py-4 flex items-center justify-between sticky top-0 z-50 shrink-0">
         <div className="flex items-center gap-3">
-          <span className="text-xl font-bold bg-linear-to-r from-violet-400 via-purple-200 to-fuchsia-400 bg-clip-text text-transparent font-logo">
+          <div className="w-9 h-9 rounded-xl  flex items-center justify-center">
+            <img className="w-12 h-12" src={icon} alt="" />
+          </div>
+          <span className="text-xl font-bold bg-linear-to-r from-blue-400 via-cyan-200 to-gray-300 bg-clip-text text-transparent font-logo">
             Lumen
-          </span>
-          <span className="text-xs text-gray-500 border border-[#3c3c3e] px-2 py-0.5 rounded-full">
-            Beta
           </span>
         </div>
 

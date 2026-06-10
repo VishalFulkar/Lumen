@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { researchAPI } from '../services/api'
 import { useNavigate } from 'react-router-dom'
 import { useResearchStore } from '../store/researchStore'
+import logo from "../assets/logo.svg"
 
 const ResearchInput = () => {
     const [topic, setTopic] = useState("");
@@ -48,10 +49,11 @@ const ResearchInput = () => {
     return (
         <div className='w-full min-h-full py-12 flex items-center justify-center p-4 bg-transparent animate-fade-in'>
             <div className='max-w-2xl w-full'>
-                <div className='text-center mb-8'>
+                <div className='flex items-center justify-center mb-2'>
                     <h1 className='text-4xl font-bold text-white mb-2 tracking-tight font-logo'>Lumen</h1>
-                    <p className='text-gray-400 text-sm'>AI-Powered Research Co-pilot</p>
+                    <img src={logo} alt="" className='w-20 h-20 mb-1' />
                 </div>
+                <p className='text-gray-400 text-center text-sm mb-8'>AI-Powered Research Co-pilot</p>
 
                 <form 
                     onSubmit={handleSubmit} 
