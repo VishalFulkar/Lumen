@@ -54,8 +54,8 @@ const App = () => {
         <h2 className="text-xl font-medium text-gray-300 tracking-wide animate-pulse font-logo">
           Lumen
         </h2>
-        <p className="text-slate-400 text-xs max-w-xs leading-relaxed animate-pulse">
-          Waking up our backend server on Render. This may take up to a minute on the first load. Thank you for your patience!
+        <p className="text-slate-400 text-xs max-w-xs text-center leading-relaxed animate-pulse">
+          Waking up our backend server on Render. This may take up to a minute on the first load. <br />Thank you for your patience!
         </p>
       </div>
     )
