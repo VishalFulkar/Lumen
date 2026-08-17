@@ -11,7 +11,7 @@ const validateCitations = async (sessionId, report, sources) => {
     );
 
     // Extract all [Source N] references from report
-    const citationRegex = /\[Source (\d+)\]/g;
+    const citationRegex = /\[Source[\s:]+(\d+)\]/gi;
     const citations = [];
     let match;
 

@@ -10,9 +10,8 @@ const extractEntities = async (sessionId, report, topic) => {
 
   try {
     const completion = await groq.chat.completions.create({
-      model: "llama-3.1-8b-instant",
+      model: "openai/gpt-oss-20b",
       max_tokens: 2000,
-      response_format: { type: "json_object" },
       messages: [
         {
           role: "system",
@@ -25,7 +24,7 @@ Allowed values for "type" are exactly: 'concept', 'person', 'organization', 'eve
         },
         {
           role: "user",
-          content: `Topic: ${topic}\n\nReport:\n${report.slice(0, 2000)}`,
+          content: `Topic: ${topic}\n\nReport:\n"""\n${report.slice(0, 2000)}\n"""\n\nBased on the report above, extract the knowledge graph. You MUST respond with ONLY raw JSON and no other text or markdown.`,
         },
       ],
     });
@@ -35,7 +34,7 @@ Allowed values for "type" are exactly: 'concept', 'person', 'organization', 'eve
     if (!responseText) throw new Error("Empty response from graph agent");
 
     const jsonMatch = responseText.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error("Invalid JSON response from graph agent");
+    if (!jsonMatch) throw new Error(`Invalid JSON response from graph agent. Response was: ${responseText}`);
 
     const graph = JSON.parse(jsonMatch[0]);
 
