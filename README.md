@@ -5,6 +5,10 @@ Lumen is an advanced, premium AI-powered research platform built on a MERN (Mong
 The platform provides a highly responsive UI with real-time feedback using WebSockets (Socket.io) to stream agent activity logs, and showcases synthesized research findings alongside a dynamic, interactive D3-based concept graph.
 
 ---
+![Lumen_Preview](https://ik.imagekit.io/VishalFulkar/Lumen/Home.png?updatedAt=1781102660705)
+---
+![Lumen_Preview](https://ik.imagekit.io/VishalFulkar/Lumen/Home-page.png?updatedAt=1781102492168)
+---
 
 ## 🚀 Key Features
 
